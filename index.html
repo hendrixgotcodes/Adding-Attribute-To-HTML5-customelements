@@ -1,0 +1,51 @@
+<!-- Author: @nolimithendrix
+Topic: Adding attributes to HTML5 custom elements 
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Custom Elements</title>
+  </head>
+  <body>
+    <human-beings type="man">Man</human-beings>
+    <human-beings type="woman">Woman</human-beings>
+
+    <script>
+      // 1. Create a getter and setter
+      // 2. Create a function/method which will be performed when the attribute is checked
+      // 3. Set a condition to call the function when the attribute is checked
+
+      class Humans extends HTMLElement {
+        constructor() {
+          super();
+          // 3. Setting a condition to call the function when the attribute is checked
+          if (this.hasAttribute("type")) {
+            this.setIcon(this.type);
+          }
+        }
+
+        // 1. Creating getter and setter
+        get type() {
+          return this.getAttribute("type");
+        }
+        set type(newValue) {
+          this.setAttribute("type", newValue);
+        }
+
+        // 2.Creating function/method to be performed when the attribute is checked
+        setIcon(type) {
+          if (type == "man") {
+            // http://xahlee.info/comp/unicode_emoticons.html for unicode
+            this.textContent = "👨 " + this.textContent + " 👨";
+          } else if (type == "woman") {
+            this.textContent = "👩" + this.textContent + " 👩";
+          }
+        }
+      }
+
+      customElements.define("human-beings", Humans);
+    </script>
+  </body>
+</html>
